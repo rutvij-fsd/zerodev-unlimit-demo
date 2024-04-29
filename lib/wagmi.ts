@@ -1,12 +1,13 @@
 import { http, createConfig } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { mainnet, sepolia } from "wagmi/chains";
 
 export const config = createConfig({
-  chains: [mainnet],
+  chains: [mainnet, sepolia],
   multiInjectedProviderDiscovery: false,
   ssr: true,
   transports: {
     [mainnet.id]: http(),
+    [sepolia.id]: http()
   },
 });
 

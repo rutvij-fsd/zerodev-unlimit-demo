@@ -6,6 +6,8 @@ import {
   DynamicContextProvider,
   EthereumWalletConnectors,
   DynamicWagmiConnector,
+  ZeroDevSmartWalletConnectors,
+  SolanaWalletConnectors
 } from "../lib/dynamic";
 
 import { Providers } from "./providers";
@@ -26,8 +28,8 @@ export default function RootLayout({
     <html lang="en">
       <DynamicContextProvider
         settings={{
-          environmentId: "2762a57b-faa4-41ce-9f16-abff9300e2c9",
-          walletConnectors: [EthereumWalletConnectors],
+          environmentId: "392bdadc-429a-42c8-8db0-f1193c84f1fb",
+          walletConnectors: [SolanaWalletConnectors,ZeroDevSmartWalletConnectors, EthereumWalletConnectors],
         }}
       >
         <Providers>

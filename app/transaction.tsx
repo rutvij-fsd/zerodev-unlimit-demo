@@ -24,13 +24,9 @@ function Transaction() {
   const [hasMinted, setHasMinted] = useState(false);
   const { initPasskeyRecoveryProcess } = usePasskeyRecovery();
   const { primaryWallet, user } = useDynamicContext();
-//   const { address, isConnected } = useAccount();
-    // console.log(isConnected)
-    // console.log(address)
-    // console.log(primaryWallet)
 const isConnected= primaryWallet?.connected;
 const address = primaryWallet?.address;
-console.log(user)
+
   const alias = user?.email || "Anon";
 
   const { data: balance = 0, refetch } = useReadContract({

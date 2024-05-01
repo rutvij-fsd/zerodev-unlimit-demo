@@ -5,6 +5,7 @@ import Transaction from "./transaction";
 import Image from "next/image";
 import Logo from './logo.png'
 import OfframpExample from "./OfframpExample";
+import SendTransaction from "./sendCryptoTransaction";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <Transaction/>
         <OnrampExample/>
         <OfframpExample/>
+        <SendTransaction/>
       </div>
     </main>
   );

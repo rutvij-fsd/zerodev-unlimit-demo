@@ -3,8 +3,6 @@
 /* eslint-disable no-useless-concat */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { GateFiDisplayModeEnum, GateFiSDK, GateFiLangEnum } from "@gatefi/js-sdk";
-import { FC, useRef, useEffect, useState, ChangeEvent, FormEvent } from "react";
 import crypto from "crypto-browserify";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
@@ -18,7 +16,7 @@ const OfframpExample: React.FC = () => {
 
   const handleHostedFlowClick = () => {
     const url =
-      `https://offramp-sandbox.gatefi.com/?merchantId=${process.env.NEXT_PUBLIC_UNLIMIT_MERCHANTID}`;
+      `https://offramp-sandbox.gatefi.com/?merchantId=${process.env.NEXT_PUBLIC_UNLIMIT_MERCHANTID}&wallet=${address}&cryptoCurrency=ETH&fiatCurrency=BRL&cryptoAmount=0.005`;
     window.open(url, "_blank");
   };
 

@@ -1,10 +1,6 @@
 "use client";
 import React, { useCallback, useRef, useEffect, useState } from "react";
-
-import contractAbi from "./0x34bE7f35132E97915633BC1fc020364EA5134863.json";
-
-import "./transaction.css";
-
+import "./mint/transaction.css";
 import Loading from "./Loading";
 import Typewriter from "./Typewriter";
 
@@ -17,21 +13,20 @@ import {
 
 import { isZeroDevConnector } from "@dynamic-labs/ethereum-aa";
 
-import { useSendBalance } from "@dynamic-labs/sdk-react-core";
-
-const nftAddress = "0x34bE7f35132E97915633BC1fc020364EA5134863";
-
 function SendTransaction() {
   const [isTransactionOn, setIsTransactionOn] = useState(false);
   const [formData, setFormData] = useState({
     recipient_wallet_address: "",
     amount_of_eth_to_send: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [transactionResult, setTransactionResult] = useState<`0x${string}` | undefined>(undefined);
   
   const { initPasskeyRecoveryProcess } = usePasskeyRecovery();
   const { primaryWallet, user } = useDynamicContext();
   const isConnected = primaryWallet?.connected;
-  const address = primaryWallet?.address;
 
   const alias = user?.email || "Anon";
 
@@ -44,35 +39,22 @@ function SendTransaction() {
   };
   const handleSubmitSendCrypto = async (e) => {
     e.preventDefault();
-    // Handle form submission here, like sending data to a server or performing validation
+    setSuccessMessage("");
+    setErrorMessage("");
     console.log(formData);
-    await sendCrypto();
-    // try {
-    //   const connector = await primaryWallet?.connector;
-    //   const aaProvider = connector.getAccountAbstractionProvider();
-    //   // console.log(aaProvider)
-    //   if (!aaProvider) return;
+    try {
+      const result = await sendCrypto();
+      setTransactionResult(result);
+      setSuccessMessage("Transaction successful!");
 
-    //   const userOp = {
-    //     target: formData.recipient_wallet_address,
-    //     data: "0x",
-    //     value: parseEther(formData.amount_of_eth_to_send),
-    //   };
-    //   const { hash } = await aaProvider.sendUserOperation([userOp]);
-    //   console.log(hash);
-    //   const result = await aaProvider.waitForUserOperationTransaction(
-    //     hash as `0x${string}`
-    //   );
-
-    //   console.log(result);
-    // } catch (err) {
-    //   console.error("Sending balance failed", err);
-    // }
-    // Reset form fields after submission
-    setFormData({
-      recipient_wallet_address: "",
-      amount_of_eth_to_send: "",
-    });
+      setFormData({
+        recipient_wallet_address: "",
+        amount_of_eth_to_send: "",
+      });
+    }catch(e){
+      setErrorMessage("Transaction failed!");
+    }
+    
   };
 
   const sendCrypto = useCallback(async () => {
@@ -101,7 +83,6 @@ function SendTransaction() {
         // console.log(aaProvider)
         if (!aaProvider) return;
        
-        const targetAddress = formData.recipient_wallet_address.substring(2)
         const userOp = {
           target: formData.recipient_wallet_address,
           data: `0x` as `0x${string}`,
@@ -115,10 +96,13 @@ function SendTransaction() {
         );
 
         console.log(result);
+        setSuccessMessage("Transaction successful!");
         setIsTransactionOn(false);
+        return result;
       } catch (e) {
         setIsTransactionOn(false);
         console.log(e);
+        throw e;
       }
     }
   }, [primaryWallet, user, initPasskeyRecoveryProcess]);
@@ -142,11 +126,15 @@ function SendTransaction() {
           />
           
           <Loading isLoading={isTransactionOn} />
-
-          <form onSubmit={handleSubmitSendCrypto}>
-            <div>
+          {successMessage && <div className="text-green-500">{successMessage}</div>}
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+          {transactionResult && (
+            <div>Transaction Result: {transactionResult}</div>
+          )}
+          <form onSubmit={handleSubmitSendCrypto} className="flex flex-col gap-2 justify-end">
+            <div className="flex items-center text-lg gap-2">
               <label htmlFor="recipient_wallet_address">
-                Recipient Wallet Address:
+                Recipient Wallet Address :
               </label>
               <input
                 type="text"
@@ -154,12 +142,13 @@ function SendTransaction() {
                 name="recipient_wallet_address"
                 value={formData.recipient_wallet_address}
                 onChange={handleChange}
+                className="border border-gray-300 rounded-md p-2 text-black"
                 required
               />
             </div>
-            <div>
+            <div className="flex items-center text-lg gap-2">
               <label htmlFor="amount_of_eth_to_send">
-                Amount of eth to Send:
+                Amount of eth to Send :
               </label>
               <input
                 type="text"
@@ -167,10 +156,22 @@ function SendTransaction() {
                 name="amount_of_eth_to_send"
                 value={formData.amount_of_eth_to_send}
                 onChange={handleChange}
+                className="border border-gray-300 rounded-md p-2 text-black"
                 required
               />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" style={{
+              background: "rgb(201, 247, 58)",
+              border: "none",
+              borderRadius: "5px",
+              padding: "10px 20px",
+              fontSize: "1rem",
+              cursor: "pointer",
+              transition: "0.3s",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              fontWeight: "bold",
+              color: "black",
+            }}>Submit</button>
           </form>
         </>
       )}

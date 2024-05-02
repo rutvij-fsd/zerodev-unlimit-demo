@@ -1,12 +1,12 @@
 "use client"
-import React, { useCallback, useRef, useEffect, useState } from "react";
+import React, { useCallback, useRef, useEffect, useState, use } from "react";
 import { useReadContract } from "wagmi";
-import contractAbi from "./0x34bE7f35132E97915633BC1fc020364EA5134863.json";
+import contractAbi from "../mint/0x34bE7f35132E97915633BC1fc020364EA5134863.json";
 
 import "./transaction.css";
 
-import Loading from "./Loading";
-import Typewriter from "./Typewriter";
+import Loading from "../Loading";
+import Typewriter from "../Typewriter";
 
 import { encodeFunctionData } from "viem";
 
@@ -16,6 +16,7 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 
 import { isZeroDevConnector } from "@dynamic-labs/ethereum-aa";
+import { redirect } from "next/navigation";
 
 const nftAddress = "0x34bE7f35132E97915633BC1fc020364EA5134863";
 
@@ -35,7 +36,7 @@ const address = primaryWallet?.address;
     functionName: "balanceOf",
     args: [address],
   });
-
+  console.log(balance);
   const mint = useCallback(async () => {
     const vcs = user?.verifiedCredentials;
 
@@ -107,11 +108,23 @@ const address = primaryWallet?.address;
     }
   }, [balance, interval]);
 
+  
+  const checkBalance = async () => {
+    await refetch();
+  }
+  useEffect(() => {
+    checkBalance();
+  }
+  , [checkBalance]);
   const mintAgain = () => {
     setHasMinted(false);
     setIsMinting(false);
     return handleClick();
   };
+
+  if(!isConnected){
+    redirect('/')
+  }
 
   return (
     <div
@@ -127,7 +140,7 @@ const address = primaryWallet?.address;
         
       {isConnected && (
         <>
-          {hasMinted && (
+          {(hasMinted || balance)&& (
             <>
               <strong style={{ fontSize: "1.5rem" }}>NFT Count</strong>
               <div

@@ -2,7 +2,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
+import Image from "next/image";
+import Logo from './logo.png'
 import {
   DynamicContextProvider,
   EthereumWalletConnectors,
@@ -12,6 +13,7 @@ import {
 } from "../lib/dynamic";
 
 import { Providers } from "./providers";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +29,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <>
+     
+      
       <DynamicContextProvider
         settings={{
           environmentId: "392bdadc-429a-42c8-8db0-f1193c84f1fb",
@@ -35,10 +40,24 @@ export default function RootLayout({
       >
         <Providers>
           <DynamicWagmiConnector>
-            <body className={inter.className}>{children}</body>
+            
+            <body className={inter.className} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
+              <div className={"w-96"}>
+              <Link href="/">
+               
+                <Image src={Logo} alt="Logo" />
+                
+              </Link>
+              </div>
+              <main>
+              {children}
+              </main>
+              </body>
           </DynamicWagmiConnector>
         </Providers>
       </DynamicContextProvider>
+
+      </>
     </html>
   );
 }

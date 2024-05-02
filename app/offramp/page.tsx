@@ -34,7 +34,6 @@ const OfframpExample: React.FC = () => {
           alignItems: "center",
         }}
       >
-        {/* Buttons with modern styling */}
         {isConnected && (
         <>
         <div

@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useRef, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./mint/transaction.css";
 import Loading from "./Loading";
 import Typewriter from "./Typewriter";
@@ -22,7 +22,7 @@ function SendTransaction() {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [transactionResult, setTransactionResult] = useState<`0x${string}` | undefined>(undefined);
+  const [transactionResult, setTransactionResult] = useState();
   
   const { initPasskeyRecoveryProcess } = usePasskeyRecovery();
   const { primaryWallet, user } = useDynamicContext();

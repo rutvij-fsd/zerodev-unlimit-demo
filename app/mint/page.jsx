@@ -105,11 +105,7 @@ const address = primaryWallet?.address;
     if (interval.current) {
       clearInterval(interval.current);
     }
-  }, [balance, interval]);
-  const handleUpdateBalance = () => {
-    refetch();
-  }
-  
+  }, [balance, interval]);  
  
   const mintAgain = () => {
     setHasMinted(false);
@@ -135,20 +131,10 @@ const address = primaryWallet?.address;
         
       {isConnected && (
         <>
-          {(hasMinted || balance)&& (
+          {(hasMinted)&& (
             <>
               <strong style={{ fontSize: "1.5rem" }}>NFT Count</strong>
-              <button onClick={handleUpdateBalance} style={{
-                fontSize: "1rem",
-                fontWeight: "medium",
-                padding: "0.5rem 1rem",
-                borderRadius: 10,
-                backgroundColor: "#2B8DE3",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-              
-              }}>Update Balance</button>
+            
               <div
                 style={{
                   fontSize: "2rem",

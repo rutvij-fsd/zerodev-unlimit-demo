@@ -5,7 +5,7 @@
 import React from "react";
 import { GateFiDisplayModeEnum, GateFiSDK, GateFiLangEnum } from "@gatefi/js-sdk";
 import { FC, useRef, useEffect, useState, ChangeEvent, FormEvent } from "react";
-import crypto from "crypto-browserify";
+import crypto from "crypto";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { redirect } from "next/navigation";
 

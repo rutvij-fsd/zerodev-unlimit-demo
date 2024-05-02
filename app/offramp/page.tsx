@@ -3,7 +3,6 @@
 /* eslint-disable no-useless-concat */
 
 import React from "react";
-import crypto from "crypto-browserify";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import SendTransaction from "../sendCryptoTransaction";
 import { redirect } from "next/navigation";

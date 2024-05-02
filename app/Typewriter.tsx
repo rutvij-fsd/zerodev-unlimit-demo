@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Typewriter = ({ text, typingSpeed = 100 }) => {
+const Typewriter = ({ text, typingSpeed = 100 }: { text: string, typingSpeed?: number }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {

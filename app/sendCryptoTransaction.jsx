@@ -85,14 +85,14 @@ function SendTransaction() {
        
         const userOp = {
           target: formData.recipient_wallet_address,
-          data: `0x` as `0x${string}`,
+          data: `0x`,
           value: parseEther(formData.amount_of_eth_to_send),
         };
 
         const { hash } = await aaProvider.sendUserOperation([userOp]);
         console.log(hash);
         const result = await aaProvider.waitForUserOperationTransaction(
-          hash as `0x${string}`
+          hash
         );
 
         console.log(result);

@@ -1,7 +1,7 @@
 "use client"
 import React, { useCallback, useRef, useEffect, useState, use } from "react";
 import { useReadContract } from "wagmi";
-import contractAbi from "../mint/0x34bE7f35132E97915633BC1fc020364EA5134863.json";
+import contractAbi from "./0x34bE7f35132E97915633BC1fc020364EA5134863.json";
 
 import "./transaction.css";
 
@@ -63,18 +63,18 @@ const address = primaryWallet?.address;
         if (!aaProvider) return;
 
         const userOp = {
-          target: nftAddress as `0x${string}`,
+          target: nftAddress ,
           data: encodeFunctionData({
             abi: contractAbi,
             functionName: "mint",
             args: [address],
-          }) as `0x${string}`,
+          }) ,
         };
 
         const { hash } = await aaProvider.sendUserOperation([userOp, userOp]);
         console.log(hash)
         const result = await aaProvider.waitForUserOperationTransaction(
-          hash as `0x${string}`
+          hash 
         );
 
         console.log(result);
@@ -87,7 +87,7 @@ const address = primaryWallet?.address;
     }
   }, [primaryWallet, user, address, initPasskeyRecoveryProcess]);
 
-  const interval = useRef<any>();
+  const interval = useRef();
 
   const handleClick = useCallback(() => {
     mint();

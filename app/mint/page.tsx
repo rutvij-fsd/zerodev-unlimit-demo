@@ -108,7 +108,8 @@ const address = primaryWallet?.address;
     }
   }, [balance, interval]);
 
-  , [checkBalance]);
+  
+ 
   const mintAgain = () => {
     setHasMinted(false);
     setIsMinting(false);

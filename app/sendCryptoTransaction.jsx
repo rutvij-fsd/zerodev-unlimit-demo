@@ -29,7 +29,9 @@ function SendTransaction() {
   const isConnected = primaryWallet?.connected;
 
   const alias = user?.email || "Anon";
-
+  const handleUpdateBalance = async () => {
+    await refetch();
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({

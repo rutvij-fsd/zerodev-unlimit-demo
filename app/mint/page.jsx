@@ -117,6 +117,13 @@ const address = primaryWallet?.address;
     redirect('/')
   }
 
+  useEffect(() => {
+    if (balance >= 2) {
+      setHasMinted(true);
+    }
+  }
+  , [balance]);
+
   return (
     <div
       style={{
@@ -134,7 +141,6 @@ const address = primaryWallet?.address;
           {(hasMinted)&& (
             <>
               <strong style={{ fontSize: "1.5rem" }}>NFT Count</strong>
-            
               <div
                 style={{
                   fontSize: "2rem",

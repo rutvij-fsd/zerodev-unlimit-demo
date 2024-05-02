@@ -1,7 +1,7 @@
 "use client"
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 /* eslint-disable no-useless-concat */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
 import { GateFiDisplayModeEnum, GateFiSDK, GateFiLangEnum } from "@gatefi/js-sdk";
 import { FC, useRef, useEffect, useState, ChangeEvent, FormEvent } from "react";

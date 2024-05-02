@@ -1,7 +1,11 @@
 import React from "react";
 import "./loading.css"; // Import the CSS file for styling
 
-const Loading = ({ isLoading }) => {
+interface LoadingProps {
+  isLoading: boolean;
+}
+
+const Loading = ({ isLoading }: LoadingProps) => {
   if (!isLoading) return null;
 
   return (

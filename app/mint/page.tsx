@@ -43,7 +43,7 @@ const address = primaryWallet?.address;
     const verifiedCredential = vcs?.find((vc) => vc.walletName === "turnkeyhd");
     const hasAuthenticator =
       verifiedCredential?.walletProperties?.isAuthenticatorAttached;
-
+  
     if (!hasAuthenticator) {
       await initPasskeyRecoveryProcess();
     }
@@ -54,7 +54,6 @@ const address = primaryWallet?.address;
       console.error("no connector");
       return;
     }
-
     setIsMinting(true);
 
     if (isZeroDevConnector(connector)) {

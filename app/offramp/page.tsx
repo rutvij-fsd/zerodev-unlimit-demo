@@ -1,7 +1,7 @@
 "use client"
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 /* eslint-disable no-useless-concat */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
 import crypto from "crypto-browserify";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";

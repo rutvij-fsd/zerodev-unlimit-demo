@@ -6,7 +6,7 @@ import React from "react";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import SendTransaction from "../sendCryptoTransaction";
 import { redirect } from "next/navigation";
-
+import crypto from "crypto";
 
 const OfframpExample: React.FC = () => {
   const { primaryWallet } = useDynamicContext();
@@ -17,7 +17,7 @@ const OfframpExample: React.FC = () => {
 
   const handleHostedFlowClick = () => {
     const url =
-      `https://offramp-sandbox.gatefi.com/?merchantId=${process.env.NEXT_PUBLIC_UNLIMIT_MERCHANTID}&wallet=${address}&cryptoCurrency=ETH&fiatCurrency=BRL&cryptoAmount=0.005`;
+      `https://offramp-sandbox.gatefi.com/?merchantId=${process.env.NEXT_PUBLIC_UNLIMIT_MERCHANTID}&wallet=${address}&cryptoCurrency=ETH&fiatCurrency=BRL&cryptoAmount=0.005&externalId=${crypto.randomBytes(32).toString("hex")}`;
     window.open(url, "_blank");
   };
 

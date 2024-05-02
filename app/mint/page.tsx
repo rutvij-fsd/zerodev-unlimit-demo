@@ -108,13 +108,6 @@ const address = primaryWallet?.address;
     }
   }, [balance, interval]);
 
-  
-  const checkBalance = async () => {
-    await refetch();
-  }
-  useEffect(() => {
-    checkBalance();
-  }
   , [checkBalance]);
   const mintAgain = () => {
     setHasMinted(false);
